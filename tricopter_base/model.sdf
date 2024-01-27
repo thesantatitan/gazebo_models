@@ -7,7 +7,7 @@
     <link name="base_link">
       <!-- TODO: Modify inertial -->
       <inertial>
-        <mass>2.0</mass>
+        <mass>0.6</mass>
         <inertia>
           <ixx>0.002723</ixx>
           <ixy>0.001572</ixy>
