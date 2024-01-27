@@ -164,8 +164,15 @@
         </surface>
       </collision>
     </link>
-    <joint name="rotor_0_joint" type="revolute">
+    <joint name="rotor_0_joint" type="continous">
       <parent>base_link</parent>
+      <child>rotor_0_base</child>
+      <axis>
+        <xyz expressed_in="rotor_0_base">1 0 0</xyz>
+      </axis>
+    </joint>
+    <joint name="rotor_0_prop_joint" type="revolute">
+      <parent>rotor_0_base</parent>
       <child>rotor_0</child>
       <axis>
         <xyz>0 0 1</xyz>
