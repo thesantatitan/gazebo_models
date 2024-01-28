@@ -5,17 +5,7 @@
     <self_collide>false</self_collide>
     <static>false</static>
     <link name="base_link">
-      <inertial>
-        <mass>0.6</mass>
-        <inertia>
-          <ixx>0.002723</ixx>
-          <ixy>0.001572</ixy>
-          <ixz>0.003144</ixz>
-          <iyy>0.002723</iyy>
-          <iyz>0.00363</iyz>
-          <izz>0.005445</izz>
-        </inertia>
-      </inertial>
+      <inertial auto="true" />
       <gravity>true</gravity>
       <velocity_decay/>
       <visual name="base_link_visual">
@@ -164,11 +154,19 @@
         </surface>
       </collision>
     </link>
-    <joint name="rotor_0_joint" type="continous">
+    <joint name="rotor_0_joint" type="revolute">
       <parent>base_link</parent>
       <child>rotor_0_base</child>
       <axis>
         <xyz expressed_in="rotor_0_base">1 0 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
       </axis>
     </joint>
     <joint name="rotor_0_prop_joint" type="revolute">
@@ -190,7 +188,7 @@
       <gravity>true</gravity>
       <self_collide>false</self_collide>
       <velocity_decay/>
-      <pose degrees="true">0 0 0 0 0 2.094395</pose>
+      <pose>0 0 0 0 0 2.094395</pose>
       <inertial>
           <mass>0.05</mass>
           <inertia>
@@ -301,18 +299,26 @@
         </dynamics>
       </axis>
     </joint>
-    <joint name="rotor_1_joint" type="continous">
+    <joint name="rotor_1_joint" type="revolute">
       <parent>base_link</parent>
       <child>rotor_1_base</child>
       <axis>
         <xyz expressed_in="rotor_1_base">1 0 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
       </axis>
     </joint>
     <link name="rotor_2_base">
       <gravity>true</gravity>
       <self_collide>false</self_collide>
       <velocity_decay/>
-      <pose degrees="true">0 0 0 0 0 -2.094395</pose>
+      <pose>0 0 0 0 0 -2.094395</pose>
       <inertial>
           <mass>0.05</mass>
           <inertia>
@@ -423,12 +429,87 @@
         </dynamics>
       </axis>
     </joint>
-    <joint name="rotor_2_joint" type="continous">
+    <joint name="rotor_2_joint" type="revolute">
       <parent>base_link</parent>
       <child>rotor_2_base</child>
       <axis>
         <xyz expressed_in="rotor_2_base">1 0 0</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+        <dynamics>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
       </axis>
     </joint>
+
+    <plugin filename="gz-sim-multicopter-motor-model-system" name="gz::sim::systems::MulticopterMotorModel">
+      <jointName>rotor_0_prop_joint</jointName>
+      <linkName>rotor_0</linkName>
+      <turningDirection>ccw</turningDirection>
+      <timeConstantUp>0.0125</timeConstantUp>
+      <timeConstantDown>0.025</timeConstantDown>
+      <maxRotVelocity>1000.0</maxRotVelocity>
+      <motorConstant>8.54858e-06</motorConstant>
+      <momentConstant>0.016</momentConstant>
+      <commandSubTopic>command/motor_speed</commandSubTopic>
+      <motorNumber>0</motorNumber>
+      <rotorDragCoefficient>8.06428e-05</rotorDragCoefficient>
+      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
+      <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
+      <motorType>velocity</motorType>
+    </plugin>
+    <plugin filename="gz-sim-multicopter-motor-model-system" name="gz::sim::systems::MulticopterMotorModel">
+      <jointName>rotor_1_prop_joint</jointName>
+      <linkName>rotor_1</linkName>
+      <turningDirection>ccw</turningDirection>
+      <timeConstantUp>0.0125</timeConstantUp>
+      <timeConstantDown>0.025</timeConstantDown>
+      <maxRotVelocity>1000.0</maxRotVelocity>
+      <motorConstant>8.54858e-06</motorConstant>
+      <momentConstant>0.016</momentConstant>
+      <commandSubTopic>command/motor_speed</commandSubTopic>
+      <motorNumber>1</motorNumber>
+      <rotorDragCoefficient>8.06428e-05</rotorDragCoefficient>
+      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
+      <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
+      <motorType>velocity</motorType>
+    </plugin>
+    <plugin filename="gz-sim-multicopter-motor-model-system" name="gz::sim::systems::MulticopterMotorModel">
+      <jointName>rotor_2_prop_joint</jointName>
+      <linkName>rotor_2</linkName>
+      <turningDirection>ccw</turningDirection>
+      <timeConstantUp>0.0125</timeConstantUp>
+      <timeConstantDown>0.025</timeConstantDown>
+      <maxRotVelocity>1000.0</maxRotVelocity>
+      <motorConstant>8.54858e-06</motorConstant>
+      <momentConstant>0.016</momentConstant>
+      <commandSubTopic>command/motor_speed</commandSubTopic>
+      <motorNumber>2</motorNumber>
+      <rotorDragCoefficient>8.06428e-05</rotorDragCoefficient>
+      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
+      <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
+      <motorType>velocity</motorType>
+    </plugin>
+    <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+      <joint_name>rotor_0_joint</joint_name>
+      <sub_topic>command/servo</sub_topic>
+      <use_actuator_msg>true</use_actuator_msg>
+      <actuator_number>0</actuator_number>
+    </plugin>
+    <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+      <joint_name>rotor_1_joint</joint_name>
+      <sub_topic>command/servo</sub_topic>
+      <use_actuator_msg>true</use_actuator_msg>
+      <actuator_number>1</actuator_number>
+    </plugin>
+    <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+      <joint_name>rotor_2_joint</joint_name>
+      <sub_topic>command/servo</sub_topic>
+      <use_actuator_msg>true</use_actuator_msg>
+      <actuator_number>2</actuator_number>
+    </plugin>
   </model>
 </sdf>
