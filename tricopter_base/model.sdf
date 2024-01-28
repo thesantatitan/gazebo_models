@@ -16,6 +16,11 @@
             <uri>model://tricopter_base/meshes/tricopter_frame.stl</uri>
           </mesh>
         </geometry>
+        <material>
+          <ambient>0.8 0.0 0.0 1</ambient>
+          <diffuse>0.8 0.0 0.0 1</diffuse>
+          <specular>0.5 0.0 0.0 1</specular>
+        </material>
       </visual>
       <collision name="base_link_collision">
         <pose>0 0 0 0 0 0</pose>
@@ -75,6 +80,11 @@
             <uri>model://tricopter_base/meshes/motor_base.stl</uri>
           </mesh>
         </geometry>
+        <material>
+          <ambient>0.0 0.0 0.5 1.0</ambient> <!-- Blue color with full opacity -->
+          <diffuse>0.0 0.0 0.8 1.0</diffuse> <!-- Slightly lighter blue color for diffuse reflection -->
+          <specular>0.5 0.5 0.5 1.0</specular> <!-- Grey color for specular highlight -->
+        </material>
       </visual>
       <collision name="rotor_0_base_collision">
         <pose>0 0 0 0 0 0</pose>
@@ -157,8 +167,9 @@
     <joint name="rotor_0_joint" type="revolute">
       <parent>base_link</parent>
       <child>rotor_0_base</child>
+      <pose>0 0 0.009 0 0 0</pose>
       <axis>
-        <xyz expressed_in="rotor_0_base">1 0 0</xyz>
+        <xyz>1 0 0</xyz>
         <limit>
           <lower>-1e+16</lower>
           <upper>1e+16</upper>
@@ -205,6 +216,11 @@
             <uri>model://tricopter_base/meshes/motor_base.stl</uri>
           </mesh>
         </geometry>
+        <material>
+          <ambient>0.0 0.0 0.5 1.0</ambient> <!-- Blue color with full opacity -->
+          <diffuse>0.0 0.0 0.8 1.0</diffuse> <!-- Slightly lighter blue color for diffuse reflection -->
+          <specular>0.5 0.5 0.5 1.0</specular> <!-- Grey color for specular highlight -->
+        </material>
       </visual>
       <collision name="rotor_1_base_collision">
         <pose>0 0 0 0 0 0</pose>
@@ -302,8 +318,9 @@
     <joint name="rotor_1_joint" type="revolute">
       <parent>base_link</parent>
       <child>rotor_1_base</child>
+      <pose>0 0 0.009 0 0 0</pose>
       <axis>
-        <xyz expressed_in="rotor_1_base">1 0 0</xyz>
+        <xyz>1 0 0</xyz>
         <limit>
           <lower>-1e+16</lower>
           <upper>1e+16</upper>
@@ -335,6 +352,11 @@
             <uri>model://tricopter_base/meshes/motor_base.stl</uri>
           </mesh>
         </geometry>
+        <material>
+          <ambient>0.0 0.0 0.5 1.0</ambient> <!-- Blue color with full opacity -->
+          <diffuse>0.0 0.0 0.8 1.0</diffuse> <!-- Slightly lighter blue color for diffuse reflection -->
+          <specular>0.5 0.5 0.5 1.0</specular> <!-- Grey color for specular highlight -->
+        </material>
       </visual>
       <collision name="rotor_2_base_collision">
         <pose>0 0 0 0 0 0</pose>
@@ -432,8 +454,9 @@
     <joint name="rotor_2_joint" type="revolute">
       <parent>base_link</parent>
       <child>rotor_2_base</child>
+      <pose>0 0 0.009 0 0 0</pose>
       <axis>
-        <xyz expressed_in="rotor_2_base">1 0 0</xyz>
+        <xyz>1 0 0</xyz>
         <limit>
           <lower>-1e+16</lower>
           <upper>1e+16</upper>
@@ -493,21 +516,18 @@
       <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
       <motorType>velocity</motorType>
     </plugin>
-    <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+    <plugin filename="gz-sim-joint-controller-system" name="gz::sim::systems::JointController">
       <joint_name>rotor_0_joint</joint_name>
-      <sub_topic>command/servo</sub_topic>
       <use_actuator_msg>true</use_actuator_msg>
       <actuator_number>0</actuator_number>
     </plugin>
-    <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+    <plugin filename="gz-sim-joint-controller-system" name="gz::sim::systems::JointController">
       <joint_name>rotor_1_joint</joint_name>
-      <sub_topic>command/servo</sub_topic>
       <use_actuator_msg>true</use_actuator_msg>
       <actuator_number>1</actuator_number>
     </plugin>
-    <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+    <plugin filename="gz-sim-joint-controller-system" name="gz::sim::systems::JointController">
       <joint_name>rotor_2_joint</joint_name>
-      <sub_topic>command/servo</sub_topic>
       <use_actuator_msg>true</use_actuator_msg>
       <actuator_number>2</actuator_number>
     </plugin>
